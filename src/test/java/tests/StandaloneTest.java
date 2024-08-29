@@ -32,7 +32,7 @@ public class StandaloneTest extends BaseTest
 @Test(retryAnalyzer = test_Components.Retry.class)	
 public void StandAlone_Test()
 {
-
+//this is standalone test
 ProductCatlog productCatlog = loginPage.Login("theboys@12gmail.com","Karan@11");
 	
 List<WebElement> productList = productCatlog.getProductList();

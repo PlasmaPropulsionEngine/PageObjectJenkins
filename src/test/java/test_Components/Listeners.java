@@ -19,21 +19,18 @@ public class Listeners extends BaseTest implements ITestListener{
 	ExtentReports extentReports=ExtentReportConfiguration.getExtentReportObject();
 	ThreadLocal<ExtentTest>extentTest=new ThreadLocal<ExtentTest>();
 //we have to make thread safe for ExtentTest object
-	@Override
 	public void onTestStart(ITestResult result) {
 	
 	 test = extentReports.createTest(result.getMethod().getMethodName());	
 		extentTest.set(test);
 	}
 
-	@Override
 	public void onTestSuccess(ITestResult result) {
 		
 		 extentTest.get().log(Status.PASS,"Test Passed..!");
 		
 	}
 	
-	@Override
 	public void onTestFailure(ITestResult result) {
 	
       extentTest.get().fail(result.getThrowable());
@@ -42,7 +39,7 @@ public class Listeners extends BaseTest implements ITestListener{
 		{
 		driver=(WebDriver) result.getTestClass().getRealClass().getField("driver").get(result.getInstance());
 		} 	
-		catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e1) 
+		catch (Exception e1) 
 		{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -63,13 +60,11 @@ public class Listeners extends BaseTest implements ITestListener{
 		extentTest.get().addScreenCaptureFromPath(screenShotPath,result.getMethod().getMethodName());
 	}
 
-	@Override
 	public void onTestSkipped(ITestResult result) {
 		// TODO Auto-generated method stub
-		ITestListener.super.onTestSkipped(result);
+		
 	}
 
-	@Override
 	public void onFinish(ITestContext context) {
 		
 		extentReports.flush();
